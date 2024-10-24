@@ -5,6 +5,11 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
     const password = document.getElementById('password').value; // Get the password
+// Check if the password is at least 8 characters long
+if (password.length < 8) {
+    alert('Password must be at least 8 characters long.');
+    return; // Stop further execution
+}
 
     // Create an object to hold the data
     const userData = {
@@ -36,3 +41,8 @@ document.getElementById('signup-form').addEventListener('submit', function(event
         alert('An error occurred. Please try again.');
     });
 });
+
+
+
+    
+

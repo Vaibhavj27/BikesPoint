@@ -2,7 +2,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-
+const Booking = require('../models/Booking');
+const session = require('express-session')
 const router = express.Router();
 
 // Sign Up route
@@ -24,7 +25,8 @@ router.post('/signup', async (req, res) => {
             name,
             email,
             phone,
-            password: hashedPassword
+            password: hashedPassword,
+            bookings: [] // Initialize the bookings array
         });
 
         await newUser.save();
@@ -52,7 +54,7 @@ router.post('/signin', async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
-
+        req.session.UserId = user._id;
         // If authentication is successful, send a success response
         res.status(200).json({ message: 'Sign In successful' });
     } catch (error) {
@@ -61,7 +63,53 @@ router.post('/signin', async (req, res) => {
     }
 });
 
-module.exports = router;
 
 
+// GET route to retrieve the current user's ID
+router.get('/api/current-user', async (req, res) => {
+    try {
+        const userId = req.user._id; // Assuming `req.user` contains the logged-in user's info
+        res.json({ userId: userId });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error retrieving user ID', error: err });
+    }
+});
 
+
+// POST route to create a new booking
+router.post('/api/bookings', async (req, res) => {
+    try {
+        const { bikeName, price, startDate, endDate } = req.body;
+        const userId = req.session.UserId; // Get userId from session
+
+        // Validate required fields
+        if (!bikeName || !price || !startDate || !endDate || !userId) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+        // Create a new booking
+        const newBooking = new Booking({
+            bikeName,
+            price,
+            startDate,
+            endDate,
+            userId // Make sure userId is coming from a logged-in user
+        });
+
+        const savedBooking = await newBooking.save();
+
+        // Update the user's bookings array
+        const user = await User.findById(userId);
+        if (user) {
+            user.bookings.push(savedBooking._id);
+            await user.save();
+        }
+
+        res.status(201).json({ message: 'Booking successful', booking: savedBooking });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Error booking the bike', error: err });
+    }
+});
+
+module.exports=router;

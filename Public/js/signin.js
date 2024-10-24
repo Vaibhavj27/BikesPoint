@@ -3,6 +3,11 @@ document.getElementById('signin-form').addEventListener('submit', function(event
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+// Check if the password is at least 8 characters long
+if (password.length < 8) {
+    alert('Password must be at least 8 characters long.');
+    return; // Stop further execution
+}
 
     const loginData = {
         email: email,
@@ -21,7 +26,7 @@ document.getElementById('signin-form').addEventListener('submit', function(event
         if (response.ok) {
             alert('Sign In successful!');
             // Optionally redirect to another page after successful login
-            window.location.href = 'index.html';
+            window.location.href = 'index1.html';
         } else {
             alert('Sign In failed. Please check your email and password.');
         }

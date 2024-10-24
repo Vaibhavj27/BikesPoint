@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BikesPoint |  Bikes Rental</title>
+    <title>BikesPoint | Bikes Rental</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -29,42 +29,41 @@
               </div>
             <li><a href="#">Home</a></li>
             <li><a href="bookings.html">Bookings</a></li>
-            <li><a href="sign-up.html" class="cta-btn sign-up">Sign Up</a></li>
-            <li><a href="sign-in.html" class="cta-btn sign-in">Sign In</a></li>
+            <li><a href="bookings.html">Account</a></li>
 
         </ul>
     </nav>
 
     <!-- Hero Section -->
-
-<section class="hero">
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active" data-bs-interval="10000">
-            <img src="images/GT650.avif" class="d-block w-100" alt="...">
+    <section class="hero">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="10000">
+                <img src="images/GT650.avif" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item" data-bs-interval="10000">
+                <img src="images/BulletClassic.png" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item" data-bs-interval="10000">
+                <img src="images/YamahaFZ.png" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
-          <div class="carousel-item" data-bs-interval="10000">
-            <img src="images/BulletClassic.png" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item" data-bs-interval="10000">
-            <img src="images/YamahaFZ.png" class="d-block w-100" alt="...">
-          </div>
+          <div class="hero-content">
+            <h1>Welcome to BikesPoint</h1>
+            <p>Your one-stop destination for bikes!</p>
+            <a href="sign-up.html" class="cta-btn">Get Started</a>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-      <div class="hero-content">
-        <h1>Welcome to BikesPoint</h1>
-        <p>Your one-stop destination to for bikes!</p>
-        <a href="sign-up.html" class="cta-btn">Get Started</a>
-    </div>
-    </section>
+        </section>
+      
       <!-- Bike Cards Section -->
         <section class="bike-section">
             <h2>Available Bikes</h2>
@@ -129,6 +128,7 @@
               <input type="date" id="end-date" required>
               <button class="cta-btn add-to-cart" data-bike-name="Royal Enfield Classic 350" data-bike-price="2000">Book Now</button>
 
+
                 </div>
             </div>
         </section>
@@ -150,11 +150,12 @@
                 <li>Fuel Tank Capacity: 15 liters</li>
             </ul>
             <!-- Add this button inside each detailed bike section -->
-            <label for="start-date">Start Date:</label>
-            <input type="date" id="start-date" required>
-            <label for="end-date">End Date:</label>
-            <input type="date" id="end-date" required>
-<button class="cta-btn add-to-cart" data-bike-name="Bajaj Pulsar 150" data-bike-price="1000">Book Now</button>
+              <!-- Time input in the detailed bike section -->
+              <label for="start-date">Start Date:</label>
+              <input type="date" id="start-date" required>
+              <label for="end-date">End Date:</label>
+              <input type="date" id="end-date" required>
+              <button class="cta-btn add-to-cart" data-bike-name="Bajaj Pulsar 150" data-bike-price="1000">Book Now</button>
 
         </div>
     </div>
@@ -176,8 +177,6 @@
                 <li>Torque: 13.3 Nm @ 5500 rpm</li>
                 <li>Transmission: 5-speed</li>
                 <li>Fuel Tank Capacity: 12.8 liters</li>
-                <li>Seat Height: 790 mm</li>
-                <li>Weight: 135 kg</li>
             </ul>
             <!-- Add this button inside each detailed bike section -->
             <label for="start-date">Start Date:</label>
@@ -206,7 +205,6 @@
                 <li>Torque: 52 Nm @ 5250 rpm</li>
                 <li>Transmission: 6-speed</li>
                 <li>Fuel Tank Capacity: 12.5 liters</li>
-               
             </ul>
             <!-- Add this button inside each detailed bike section -->
             <label for="start-date">Start Date:</label>
@@ -218,44 +216,59 @@
         </div>
     </div>
 </section>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script>
-    
-    document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners to all "Add to Cart" buttons
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            const bikeName = this.getAttribute('data-bike-name');
-            const bikePrice = this.getAttribute('data-bike-price');
-            const startDate = this.parentElement.querySelector('#start-date').value;
-            const endDate = this.parentElement.querySelector('#end-date').value;
+        
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function() {
+        const bikeName = this.getAttribute('data-bike-name');
+        const price = this.getAttribute('data-bike-price');
+        const startDate = document.getElementById('start-date').value;
+        const endDate = document.getElementById('end-date').value;
 
-            if (!startDate || !endDate) {
-                alert('Please select both start and end dates!');
-                return;
-            }
+        // Simple validation to ensure dates are selected
+        if (!startDate || !endDate) {
+            alert("Please select both start and end dates.");
+            return;
+        }
 
-            console.log(`Added to Cart: ${bikeName}, Price: ₹${bikePrice}, Start Date: ${startDate}, End Date: ${endDate}`);
+        // Retrieve the userId from authentication
+        fetch('/api/current-user')
+        .then(response => response.json())
+        .then(data => {
+            const userId = data.userId; // Assuming the API returns { userId: '...' }
 
-            const cartItem = {
-                name: bikeName,
-                price: bikePrice,
-                startDate: startDate,
-                endDate: endDate
-            };
-
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.push(cartItem);
-            localStorage.setItem('cart', JSON.stringify(cart));
-
-            alert(`${bikeName} has been added to your cart!`);
+            // Now send the booking details to the server
+            return fetch('/api/bookings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    bikeName: bikeName,
+                    price: price,
+                    startDate: startDate,
+                    endDate: endDate,
+                    userId: userId  // Actual userId from session/authentication
+                })
+            });
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            window.location.href = 'bookings.html'; // Redirect to 'My Bookings' page
+        })
+        .catch(error => {
+            console.error('Error booking bike:', error);
+            alert('There was an error processing your booking. Please try again later.');
         });
     });
 });
 
-    </script>
 
+</script>
     <!-- Footer -->
     <footer>
         <p>&copy; 2024 BikesPoint. All rights reserved.</p>
