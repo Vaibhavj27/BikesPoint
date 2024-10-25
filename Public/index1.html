@@ -110,6 +110,7 @@
                     <img src="/images/BulletClassic.png" alt="Royal Enfield Classic 350">
                 </div>
                 <div class="detailed-bike-info">
+                    <div class="bike" id="bike1">
                     <h2>Royal Enfield Classic 350</h2>
                     <p>Price: ₹ 2000 per day</p>
                     <h3>Specifications:</h3>
@@ -123,12 +124,12 @@
                     <!-- Add this button inside each detailed bike section -->
               <!-- Time input in the detailed bike section -->
               <label for="start-date">Start Date:</label>
-              <input type="date" id="start-date" required>
+              <input type="date" class="start-date" required>
               <label for="end-date">End Date:</label>
-              <input type="date" id="end-date" required>
+              <input type="date" class="end-date" required>
               <button class="cta-btn add-to-cart" data-bike-name="Royal Enfield Classic 350" data-bike-price="2000">Book Now</button>
 
-
+            </div>
                 </div>
             </div>
         </section>
@@ -139,6 +140,7 @@
             <img src="/images/pulsar150.webp" alt="Bajaj Pulsar 150">
         </div>
         <div class="detailed-bike-info">
+            <div class="bike" id="bike2">
             <h2>Bajaj Pulsar 150</h2>
             <p>Price: ₹ 1000 per day</p>
             <h3>Specifications:</h3>
@@ -152,11 +154,11 @@
             <!-- Add this button inside each detailed bike section -->
               <!-- Time input in the detailed bike section -->
               <label for="start-date">Start Date:</label>
-              <input type="date" id="start-date" required>
-              <label for="end-date">End Date:</label>
-              <input type="date" id="end-date" required>
+                <input type="date" class="start-date" required>
+                <label for="end-date">End Date:</label>
+                <input type="date" class="end-date" required>
               <button class="cta-btn add-to-cart" data-bike-name="Bajaj Pulsar 150" data-bike-price="1000">Book Now</button>
-
+            </div>
         </div>
     </div>
 </section>
@@ -168,6 +170,7 @@
             <img src="/images/YamahaFZ.png" alt="Yamaha FZ v3">
         </div>
         <div class="detailed-bike-info">
+            <div class="bike" id="bike3">
             <h2>Yamaha FZ v3</h2>
             <p>Price: ₹ 1500 per day</p>
             <h3>Specifications:</h3>
@@ -180,11 +183,11 @@
             </ul>
             <!-- Add this button inside each detailed bike section -->
             <label for="start-date">Start Date:</label>
-            <input type="date" id="start-date" required>
-            <label for="end-date">End Date:</label>
-            <input type="date" id="end-date" required>
+                <input type="date" class="start-date" required>
+                <label for="end-date">End Date:</label>
+                <input type="date" class="end-date" required>
 <button class="cta-btn add-to-cart" data-bike-name="Yamaha FZ V3" data-bike-price="1500">Book Now</button>
-
+        </div>
         </div>
     </div>
 </section>
@@ -196,22 +199,24 @@
             <img src="/images/GT650.avif" alt="GT 650">
         </div>
         <div class="detailed-bike-info">
-            <h2>Royal Enfield Continental GT 650</h2>
-            <p>Price: ₹ 3000 per day</p>
-            <h3>Specifications:</h3>
-            <ul>
-                <li>Engine: 648cc, Parallel Twin, Air/Oil cooled</li>
-                <li>Power: 47 BHP @ 7150 rpm</li>
-                <li>Torque: 52 Nm @ 5250 rpm</li>
-                <li>Transmission: 6-speed</li>
-                <li>Fuel Tank Capacity: 12.5 liters</li>
-            </ul>
-            <!-- Add this button inside each detailed bike section -->
-            <label for="start-date">Start Date:</label>
-            <input type="date" id="start-date" required>
-            <label for="end-date">End Date:</label>
-            <input type="date" id="end-date" required>
-<button class="cta-btn add-to-cart" data-bike-name="ContenentalGT 650" data-bike-price="3500">Book Now</button>
+            <div class="bike" id="bike4">
+                <h2>Royal Enfield Continental GT 650</h2>
+                <p>Price: ₹ 3000 per day</p>
+                <h3>Specifications:</h3>
+                <ul>
+                    <li>Engine: 648cc, Parallel Twin, Air/Oil cooled</li>
+                    <li>Power: 47 BHP @ 7150 rpm</li>
+                    <li>Torque: 52 Nm @ 5250 rpm</li>
+                    <li>Transmission: 6-speed</li>
+                    <li>Fuel Tank Capacity: 12.5 liters</li>
+                </ul>
+                <label for="start-date">Start Date:</label>
+                <input type="date" class="start-date" required>
+                <label for="end-date">End Date:</label>
+                <input type="date" class="end-date" required>
+                <button class="cta-btn add-to-cart" data-bike-name="Continental GT 650" data-bike-price="3000">Book Now</button>
+            </div>
+            
 
         </div>
     </div>
@@ -219,51 +224,51 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<script src="/js/constant.js"></script>
 <script>
+ document.querySelectorAll('.add-to-cart').forEach((button) => {
+    button.addEventListener('click', async () => {
+        const bikeName = button.getAttribute('data-bike-name');
+        const price = button.getAttribute('data-bike-price');
+
+        const bikeElement = button.closest('.bike');
+
+        const startDate = bikeElement.querySelector('.start-date').value;
+        const endDate = bikeElement.querySelector('.end-date').value;
+        const userEmail =curruseremail;
+       
+      
+
         
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', function() {
-        const bikeName = this.getAttribute('data-bike-name');
-        const price = this.getAttribute('data-bike-price');
-        const startDate = document.getElementById('start-date').value;
-        const endDate = document.getElementById('end-date').value;
 
-        // Simple validation to ensure dates are selected
-        if (!startDate || !endDate) {
-            alert("Please select both start and end dates.");
-            return;
-        }
+        const bookingData = {
+            userEmail,    // Send user email instead of userId
+            bikeName,
+            price,
+            startDate,
+            endDate
+        };
 
-        // Retrieve the userId from authentication
-        fetch('/api/current-user')
-        .then(response => response.json())
-        .then(data => {
-            const userId = data.userId; // Assuming the API returns { userId: '...' }
-
-            // Now send the booking details to the server
-            return fetch('/api/bookings', {
+        try {
+            const response = await fetch('/api/bookings', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    bikeName: bikeName,
-                    price: price,
-                    startDate: startDate,
-                    endDate: endDate,
-                    userId: userId  // Actual userId from session/authentication
-                })
+                body: JSON.stringify(bookingData)
             });
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            window.location.href = 'bookings.html'; // Redirect to 'My Bookings' page
-        })
-        .catch(error => {
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Booking successful');
+            } else {
+                alert('Booking failed');
+            }
+        } catch (error) {
             console.error('Error booking bike:', error);
-            alert('There was an error processing your booking. Please try again later.');
-        });
+            alert('An error occurred while booking the bike.');
+        }
     });
 });
 

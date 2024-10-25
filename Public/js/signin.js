@@ -2,7 +2,10 @@ document.getElementById('signin-form').addEventListener('submit', function(event
     event.preventDefault(); // Prevent the default form submission
 
     const email = document.getElementById('email').value;
+    
     const password = document.getElementById('password').value;
+
+    
 // Check if the password is at least 8 characters long
 if (password.length < 8) {
     alert('Password must be at least 8 characters long.');
@@ -25,6 +28,7 @@ if (password.length < 8) {
     .then(response => {
         if (response.ok) {
             alert('Sign In successful!');
+          
             // Optionally redirect to another page after successful login
             window.location.href = 'index1.html';
         } else {

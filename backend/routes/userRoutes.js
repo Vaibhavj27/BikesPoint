@@ -41,7 +41,7 @@ router.post('/signup', async (req, res) => {
 // Sign In Route
 router.post('/signin', async (req, res) => {
     const { email, password } = req.body; // Get email and password from the request body
-
+      curruseremail = req.body.email;
     try {
         // Check if the user exists
         const user = await User.findOne({ email });
@@ -56,6 +56,7 @@ router.post('/signin', async (req, res) => {
         }
         req.session.UserId = user._id;
         // If authentication is successful, send a success response
+       
         res.status(200).json({ message: 'Sign In successful' });
     } catch (error) {
         console.error(error);
@@ -77,39 +78,5 @@ router.get('/api/current-user', async (req, res) => {
 });
 
 
-// POST route to create a new booking
-router.post('/api/bookings', async (req, res) => {
-    try {
-        const { bikeName, price, startDate, endDate } = req.body;
-        const userId = req.session.UserId; // Get userId from session
-
-        // Validate required fields
-        if (!bikeName || !price || !startDate || !endDate || !userId) {
-            return res.status(400).json({ message: 'All fields are required' });
-        }
-        // Create a new booking
-        const newBooking = new Booking({
-            bikeName,
-            price,
-            startDate,
-            endDate,
-            userId // Make sure userId is coming from a logged-in user
-        });
-
-        const savedBooking = await newBooking.save();
-
-        // Update the user's bookings array
-        const user = await User.findById(userId);
-        if (user) {
-            user.bookings.push(savedBooking._id);
-            await user.save();
-        }
-
-        res.status(201).json({ message: 'Booking successful', booking: savedBooking });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ message: 'Error booking the bike', error: err });
-    }
-});
 
 module.exports=router;
