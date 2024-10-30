@@ -46,3 +46,49 @@ function fetchBookings() {
         console.error('Error fetching bookings:', error);
     });
 }
+
+
+function cancelBooking(bookingId) {
+    fetch(`/api/bookings/${bookingId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message || 'Booking canceled successfully.');
+            fetchBookings(); // Reload the list to reflect the deletion
+        } else {
+            alert('Failed to cancel booking. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error cancelling booking:', error);
+        alert('An error occurred while cancelling the booking.');
+    });
+}
+
+
+function signOut() {
+    fetch('/api/signout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            // Redirect to sign-in page or home page
+            window.location.href = '/index.html';
+        } else {
+            alert('Failed to sign out. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error signing out:', error);
+    });
+}

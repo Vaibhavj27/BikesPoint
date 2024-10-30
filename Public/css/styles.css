@@ -449,3 +449,58 @@ input:focus {
     margin: 0;
 }
 
+/* Container for the bookings list */
+.bookings-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Individual booking card styling */
+.booking-item {
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #ffffff;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.booking-item:hover {
+    transform: translateY(-5px);
+}
+
+/* Booking title and details */
+.booking-item h2 {
+    font-size: 1.5em;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.booking-item p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Cancel button styling */
+.cancel-booking {
+    margin-top: auto;
+    padding: 10px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.cancel-booking:hover {
+    background-color: #c0392b;
+}

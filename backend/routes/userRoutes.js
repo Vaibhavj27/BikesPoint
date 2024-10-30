@@ -125,21 +125,28 @@ router.get('/bookings', async (req, res) => {
     }
 });
 
-// route for deleting the booking
 router.delete('/bookings/:id', async (req, res) => {
     const bookingId = req.params.id;
     try {
         const deletedBooking = await Booking.findByIdAndDelete(bookingId);
         if (!deletedBooking) {
-            return res.status(404).json({ message: 'Booking not found' });
+            return res.status(404).json({ success: false, message: 'Booking not found' });
         }
-        res.json({ message: 'Booking canceled successfully' });
+        res.json({ success: true, message: 'Booking canceled successfully' });
     } catch (error) {
         console.error('Error canceling booking:', error);
-        res.status(500).json({ message: 'Error canceling booking' });
+        res.status(500).json({ success: false, message: 'Error canceling booking' });
     }
 });
 
+
+
+// Sign Out Route
+router.post('/signout', (req, res) => {
+    // Clear the 'uid' cookie
+    res.clearCookie('uid');
+    res.status(200).json({ success: true, message: 'Sign Out successful' });
+});
 
 
 module.exports=router;
