@@ -1,8 +1,11 @@
-fetchBookings();
+document.addEventListener('DOMContentLoaded', () => {
+    fetchBookings();
+});
+
 
 function fetchBookings() {
     fetch('/api/bookings', {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -41,19 +44,5 @@ function fetchBookings() {
     })
     .catch(error => {
         console.error('Error fetching bookings:', error);
-    });
-}
-
-function cancelBooking(bookingId) {
-    fetch(`/api/bookings/${bookingId}`, {
-        method: 'DELETE'
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-        location.reload();  // Reload the page to refresh the bookings list
-    })
-    .catch(error => {
-        console.error('Error cancelling booking:', error);
     });
 }

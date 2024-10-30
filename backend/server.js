@@ -1,22 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const session = require('express-session');
+const cookieParser = require('cookie-parser')
 const userRoutes = require('./routes/userRoutes');  // Import user routes
-const bookingRoutes = require('./routes/Bookings'); // Import booking routes
+//const bookingRoutes = require('./routes/Bookings'); // Import booking routes
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.static('Public')); // Serve static files from the frontend directory
 
-app.use(session({
-    secret: '9359913123', // Replace with a secret key of your choice
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false } // Set secure to true if you're using HTTPS
-}));
+
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/BikesPointDB', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -31,7 +28,7 @@ mongoose.connect('mongodb://localhost:27017/BikesPointDB', { useNewUrlParser: tr
 app.use('/api', userRoutes);  // Use the user routes with a '/api' prefix
 
 // Use booking routes
-app.use('/api/bookings', bookingRoutes);  // Mount booking routes under '/api/bookings'
+//app.use('/api/bookings', bookingRoutes); // Mount booking routes under '/api/bookings'
 
 // Start the server
 app.listen(PORT, () => {

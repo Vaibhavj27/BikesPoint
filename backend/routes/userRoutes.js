@@ -1,10 +1,15 @@
 // routes/userRoutes.js
 const express = require('express');
 const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
 const User = require('../models/User');
 const Booking = require('../models/Booking');
-const session = require('express-session')
 const router = express.Router();
+const {v4: uuidv4}= require('uuid');
+const {setUser}= require('../service/auth');
+const {getUser}= require('../service/auth')
+const {restrictToLoggedinUser}= require('../middleware/auth');
+
 
 // Sign Up route
 router.post('/signup', async (req, res) => {
@@ -41,7 +46,7 @@ router.post('/signup', async (req, res) => {
 // Sign In Route
 router.post('/signin', async (req, res) => {
     const { email, password } = req.body; // Get email and password from the request body
-      curruseremail = req.body.email;
+      
     try {
         // Check if the user exists
         const user = await User.findOne({ email });
@@ -54,10 +59,13 @@ router.post('/signin', async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
-        req.session.UserId = user._id;
-        // If authentication is successful, send a success response
        
+        // If authentication is successful, send a success response
+        const sessionId= uuidv4();
+        setUser(sessionId,user);
+        res.cookie("uid", sessionId);
         res.status(200).json({ message: 'Sign In successful' });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
@@ -65,15 +73,70 @@ router.post('/signin', async (req, res) => {
 });
 
 
-
-// GET route to retrieve the current user's ID
-router.get('/api/current-user', async (req, res) => {
+// POST route to create a new booking using email
+router.post('/bookings', async (req, res) => {
+    
+    const userUid =req.cookies.uid;
+         if(!userUid) return res.redirect("/signin");
+        const user = getUser(userUid);
+        
+        const userId = user._id;
+    const {  bikeName, price, startDate, endDate } = req.body;
+    
+    
     try {
-        const userId = req.user._id; // Assuming `req.user` contains the logged-in user's info
-        res.json({ userId: userId });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Error retrieving user ID', error: err });
+        const newBooking = new Booking({  bikeName, price, startDate, endDate, userId});
+        const savedBooking = await newBooking.save();
+
+        const user = await User.findOne({ _id: userId });  
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        // Add the booking to user's bookings array (optional)
+        user.bookings.push(savedBooking._id);
+        await user.save();
+
+        res.json({ success: true, message: 'Booking saved successfully', booking: savedBooking });
+    } catch (error) {
+        console.error('Error saving booking:', error);
+        res.status(500).json({ success: false, message: 'Error saving booking', error });
+    }
+});
+
+// route for finding all bookings for logged in user
+
+router.get('/bookings', async (req, res) => {
+    const userUid = req.cookies.uid;
+    if (!userUid) return res.redirect("/signin");
+
+    const user = getUser(userUid);
+    if (!user) {
+        return res.status(401).json({ success: false, message: 'Unauthorized user' });
+    }
+
+    try {
+        // Find all bookings for the logged-in user
+        const bookings = await Booking.find({ userId: user._id });
+        res.json(bookings);
+    } catch (error) {
+        console.error('Error fetching bookings:', error);
+        res.status(500).json({ success: false, message: 'Error fetching bookings' });
+    }
+});
+
+// route for deleting the booking
+router.delete('/bookings/:id', async (req, res) => {
+    const bookingId = req.params.id;
+    try {
+        const deletedBooking = await Booking.findByIdAndDelete(bookingId);
+        if (!deletedBooking) {
+            return res.status(404).json({ message: 'Booking not found' });
+        }
+        res.json({ message: 'Booking canceled successfully' });
+    } catch (error) {
+        console.error('Error canceling booking:', error);
+        res.status(500).json({ message: 'Error canceling booking' });
     }
 });
 
