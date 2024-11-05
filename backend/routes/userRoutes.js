@@ -8,7 +8,7 @@ const router = express.Router();
 const {v4: uuidv4}= require('uuid');
 const {setUser}= require('../service/auth');
 const {getUser}= require('../service/auth')
-const {restrictToLoggedinUser}= require('../middleware/auth');
+
 
 
 // Sign Up route
@@ -93,7 +93,7 @@ router.post('/bookings', async (req, res) => {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
 
-        // Add the booking to user's bookings array (optional)
+        // Add the booking to user's bookings array 
         user.bookings.push(savedBooking._id);
         await user.save();
 
